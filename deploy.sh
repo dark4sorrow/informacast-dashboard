@@ -4,7 +4,7 @@
 CONTAINER_NAME="informacast_dash"
 IMAGE_NAME="informacast_dash"
 
-echo "--- 🛠️  Starting Deployment ---"
+echo "--- 🛠️ Starting Deployment ---"
 
 # 1. GitHub Sync
 echo "Step 1: Syncing with GitHub..."
@@ -14,6 +14,7 @@ git add .
 echo "Enter your commit message (what did you change?):"
 read commit_msg
 
+# Default message if none is entered
 if [ -z "$commit_msg" ]; then
     commit_msg="Update: $(date +'%Y-%m-%d %H:%M')"
 fi
@@ -26,7 +27,7 @@ echo "Step 2: Rebuilding Docker Container..."
 docker stop $CONTAINER_NAME 2>/dev/null
 docker rm $CONTAINER_NAME 2>/dev/null
 
-# --no-cache ensures the container doesn't use old versions of your code
+# --no-cache is vital to ensure your pagination code is actually updated
 docker build --no-cache -t $IMAGE_NAME .
 
 echo "Step 3: Starting Container..."
@@ -38,4 +39,3 @@ docker run -d \
 
 echo "--- ✅ Deployment Complete! ---"
 docker logs --tail 10 $CONTAINER_NAME
-
