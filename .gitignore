@@ -1,0 +1,6 @@
+config.json
+secrets.py
+.env
+token.txt
+__pycache__/
+*.tmp
